@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "xyz.nekomilky.mcmod.statsscoreboard.mixins",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "StatsCounterMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}
