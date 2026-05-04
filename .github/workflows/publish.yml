@@ -37,19 +37,25 @@ jobs:
 
           files: |
             versions/1.21/build/libs/*.jar
+              | name: stats-scoreboard-${{ github.ref_name }}+1.21
               | game-versions: >=1.21 <=1.21.1
             
             versions/1.21.2/build/libs/*.jar
+              | name: stats-scoreboard-${{ github.ref_name }}+1.21.2
               | game-versions: >=1.21.2 <=1.21.4
             
             versions/1.21.5/build/libs/*.jar
+              | name: stats-scoreboard-${{ github.ref_name }}+1.21.5
               | game-versions: >=1.21.5 <=1.21.8
             
             versions/1.21.9/build/libs/*.jar
+              | name: stats-scoreboard-${{ github.ref_name }}+1.21.9
               | game-versions: >=1.21.9 <=1.21.10
             
             versions/1.21.11/build/libs/*.jar
+              | name: stats-scoreboard-${{ github.ref_name }}+1.21.11
               | game-versions: 1.21.11
             
             versions/26.1/build/libs/*.jar
-              | game-versions: ~26.1
+              | name: stats-scoreboard-${{ github.ref_name }}+26.1
+              | game-versions: >=26.1 <=26.1.2
