@@ -20,6 +20,20 @@ jobs:
       - name: Build all versions
         run: chmod +x gradlew && ./gradlew build
 
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          files: |
+            versions/1.21/build/libs/*.jar
+            versions/1.21.2/build/libs/*.jar
+            versions/1.21.5/build/libs/*.jar
+            versions/1.21.9/build/libs/*.jar
+            versions/1.21.11/build/libs/*.jar
+            versions/26.1/build/libs/*.jar
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Publish 1.21
         id: publish_1_21
         uses: Kir-Antipov/mc-publish@v3.3
@@ -27,7 +41,6 @@ jobs:
           modrinth-id: ${{ secrets.MODRINTH_ID }}
           curseforge-id: ${{ secrets.CURSEFORGE_ID }}
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
-          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           version: ${{ github.ref_name }}+1.21
           version-type: release
