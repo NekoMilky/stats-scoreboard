@@ -1,0 +1,26 @@
+{
+	"schemaVersion": 1,
+	"id": "stats-scoreboard",
+	"version": "${version}",
+	"name": "Stats Scoreboard",
+	"description": "A lightweight sidebar displays statistical data mod.",
+	"authors": [ "NekoMilky" ],
+	"contact": {
+	},
+	"license": "CC0-1.0",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+            "xyz.nekomilky.mcmod.statsscoreboard.Entry"
+		]
+	},
+	"mixins": [
+      "stats-scoreboard.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.17.0",
+		"minecraft": "1.21.1",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}
