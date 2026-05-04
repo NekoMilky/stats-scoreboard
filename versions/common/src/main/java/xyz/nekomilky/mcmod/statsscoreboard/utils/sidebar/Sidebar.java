@@ -184,6 +184,13 @@ public class Sidebar {
 		// sort
 		Map<UUID, Integer> displayRecords = new HashMap<>();
 		entry.records.entrySet().stream()
+			.filter((record) -> {
+				String playerName = SSBConfigManager.playersConfig.getPlayerName(record.getKey());
+				if (playerName != null) {
+					return true;
+				}
+				return SSBConfigManager.modConfig.getSidebarDisplayUUID();
+			})
 			.sorted(Map.Entry.<UUID, Integer>comparingByValue().reversed())
 			.limit(10)
 			.forEach((record) -> displayRecords.put(record.getKey(), record.getValue()));
@@ -193,9 +200,6 @@ public class Sidebar {
 		displayRecords.forEach((uuid, value) -> {
 			String playerName = SSBConfigManager.playersConfig.getPlayerName(uuid);
 			if (playerName == null) {
-				if (!SSBConfigManager.modConfig.getSidebarDisplayUUID()) {
-					return;
-				}
 				playerName = "UUID(" + uuid.toString().substring(0, 8) + "...)";
 			}
 			sidebar.addLine(value, playerName);

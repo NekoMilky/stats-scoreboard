@@ -1,0 +1,80 @@
+plugins {
+    id 'fabric-loom' version "${loom_version}"
+    id 'maven-publish'
+}
+
+base {
+    archivesName = "${rootProject.name}"
+}
+version = "${rootProject.mod_version}+1.21"
+group = rootProject.maven_group
+
+repositories {
+    maven { url 'https://maven.fabricmc.net/' }
+    maven { url 'https://maven.nucleoid.xyz/' }
+    mavenCentral()
+}
+
+loom {
+    splitEnvironmentSourceSets()
+    mods {
+        "stats-scoreboard" {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:1.21"
+    mappings "net.fabricmc:yarn:1.21+build.9:v2"
+    modImplementation "net.fabricmc:fabric-loader:${rootProject.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.102.0+1.21"
+    modImplementation include("eu.pb4:sidebar-api:0.5.1+1.21.1")
+    modImplementation include("xyz.nucleoid:server-translations-api:2.3.1+1.21-pre2")
+    implementation project(":common")
+}
+
+processResources {
+    def minecraftVersion = '>=1.21 <=1.21.1'
+    def javaVersion = '>=21'
+    inputs.property 'version', version
+    inputs.property 'minecraft_version', minecraftVersion
+    inputs.property 'java_version', javaVersion
+
+    from project(':common').file('src/main/resources')
+    filesMatching('template.fabric.mod.json') {
+        name = 'fabric.mod.json'
+        expand 'version': version, 'minecraft_version': minecraftVersion, 'java_version': javaVersion
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 21
+}
+
+java {
+    withSourcesJar()
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+jar {
+    from("LICENSE") {
+        rename { "${it}_${rootProject.name}" }
+    }
+    dependsOn ':common:jar'
+    from sourceSets.main.output
+    from {
+        zipTree(project(':common').tasks.jar.archiveFile)
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+publishing {
+    publications {
+        create("mavenJava", MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {}
+}

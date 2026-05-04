@@ -20,6 +20,7 @@ public class SSBCommands {
     public static void register() {
 		About.init();
 		CommandLiteralNode root = CommandLiteralNode.create("statsscoreboard")
+			.execute(About::showAbout)
 		    .then(CommandLiteralNode.create("about")
 		        .execute(About::showAbout)
 			)
