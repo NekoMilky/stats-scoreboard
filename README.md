@@ -9,7 +9,7 @@ It's a simple mod which displays all players' statistical data on the sidebar in
 Players can choose their preferred criteria and <strong>display them alternately</strong> on their sidebar.
 
 Other languages: 
-- [简体中文](README_zh_cn.md)
+- [简体中文](README_zh-cn.md)
 
 Dependencies
 ---
