@@ -41,7 +41,7 @@ jobs:
           modrinth-id: ${{ secrets.MODRINTH_ID }}
           curseforge-id: ${{ secrets.CURSEFORGE_ID }}
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
           version: ${{ github.ref_name }}+1.21
           version-type: release
           loaders: fabric
